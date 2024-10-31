@@ -1,0 +1,6 @@
+fastapi
+httpx
+loguru
+requests
+leptonai==0.21.3
+openai
