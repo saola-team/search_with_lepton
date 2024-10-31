@@ -106,14 +106,14 @@ Learn more about `lep photon` [here](https://www.lepton.ai/docs).
 
 The following commands are available in the Makefile to help you set up and run the project:
 
-- **`make install`**: Installs the required Python packages listed in `requirements.txt`. This command is essential for setting up the environment with all necessary dependencies.
-
 - **`make env`**: Creates a new Python virtual environment in the `.venv` directory. This helps to isolate the project dependencies from other Python projects on your system.
 
 - **`make activate`**: Activates the Python virtual environment created by the `make env` command. This command should be run before executing any Python scripts to ensure that the correct dependencies are used.
 
-- **`make ai`**: Runs the main application script `search_with_lepton.py`. This command starts the server for the conversational search engine.
+- **`make install`**: Installs the required Python packages listed in `requirements.txt`. This command is essential for setting up the environment with all necessary dependencies.
 
 - **`make build`**: Installs the necessary Node.js packages and builds the frontend application. This command should be run after making changes to the frontend code or when setting up the project for the first time.
+
+- **`make ai`**: Runs the main application script `search_with_lepton.py`. This command starts the server for the conversational search engine.
 
 - **`make clean`**: Uninstalls all Python packages listed in `requirements.txt`. This command can be used to clean up the environment if needed.
