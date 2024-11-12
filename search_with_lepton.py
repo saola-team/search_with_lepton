@@ -154,7 +154,8 @@ def search_with_serper(query: str, subscription_key: str):
             else (REFERENCE_COUNT // 10 + 1) * 10
         ),
     })
-    headers = {"X-API-KEY": subscription_key, "Content-Type": "application/json"}
+    headers = {"X-API-KEY": subscription_key,
+               "Content-Type": "application/json"}
     logger.info(
         f"{payload} {headers} {subscription_key} {query} {SERPER_SEARCH_ENDPOINT}"
     )
@@ -172,31 +173,35 @@ def search_with_serper(query: str, subscription_key: str):
         # convert to the same format as bing/google
         contexts = []
         if json_content.get("knowledgeGraph"):
-            url = json_content["knowledgeGraph"].get("descriptionUrl") or json_content["knowledgeGraph"].get("website")
+            url = json_content["knowledgeGraph"].get(
+                "descriptionUrl") or json_content["knowledgeGraph"].get("website")
             snippet = json_content["knowledgeGraph"].get("description")
             if url and snippet:
                 contexts.append({
-                    "name": json_content["knowledgeGraph"].get("title",""),
+                    "name": json_content["knowledgeGraph"].get("title", ""),
                     "url": url,
                     "snippet": snippet
                 })
         if json_content.get("answerBox"):
             url = json_content["answerBox"].get("url")
-            snippet = json_content["answerBox"].get("snippet") or json_content["answerBox"].get("answer")
+            snippet = json_content["answerBox"].get(
+                "snippet") or json_content["answerBox"].get("answer")
             if url and snippet:
                 contexts.append({
-                    "name": json_content["answerBox"].get("title",""),
+                    "name": json_content["answerBox"].get("title", ""),
                     "url": url,
                     "snippet": snippet
                 })
         contexts += [
-            {"name": c["title"], "url": c["link"], "snippet": c.get("snippet","")}
+            {"name": c["title"], "url": c["link"],
+                "snippet": c.get("snippet", "")}
             for c in json_content["organic"]
         ]
         return contexts[:REFERENCE_COUNT]
     except KeyError:
         logger.error(f"Error encountered: {json_content}")
         return []
+
 
 def search_with_searchapi(query: str, subscription_key: str):
     """
@@ -211,7 +216,8 @@ def search_with_searchapi(query: str, subscription_key: str):
             else (REFERENCE_COUNT // 10 + 1) * 10
         ),
     }
-    headers = {"Authorization": f"Bearer {subscription_key}", "Content-Type": "application/json"}
+    headers = {"Authorization": f"Bearer {subscription_key}",
+               "Content-Type": "application/json"}
     logger.info(
         f"{payload} {headers} {subscription_key} {query} {SEARCHAPI_SEARCH_ENDPOINT}"
     )
@@ -231,15 +237,18 @@ def search_with_searchapi(query: str, subscription_key: str):
 
         if json_content.get("answer_box"):
             if json_content["answer_box"].get("organic_result"):
-                title = json_content["answer_box"].get("organic_result").get("title", "")
-                url = json_content["answer_box"].get("organic_result").get("link", "")
+                title = json_content["answer_box"].get(
+                    "organic_result").get("title", "")
+                url = json_content["answer_box"].get(
+                    "organic_result").get("link", "")
             if json_content["answer_box"].get("type") == "population_graph":
                 title = json_content["answer_box"].get("place", "")
                 url = json_content["answer_box"].get("explore_more_link", "")
 
             title = json_content["answer_box"].get("title", "")
             url = json_content["answer_box"].get("link")
-            snippet =  json_content["answer_box"].get("answer") or json_content["answer_box"].get("snippet")
+            snippet = json_content["answer_box"].get(
+                "answer") or json_content["answer_box"].get("snippet")
 
             if url and snippet:
                 contexts.append({
@@ -250,7 +259,8 @@ def search_with_searchapi(query: str, subscription_key: str):
 
         if json_content.get("knowledge_graph"):
             if json_content["knowledge_graph"].get("source"):
-                url = json_content["knowledge_graph"].get("source").get("link", "")
+                url = json_content["knowledge_graph"].get(
+                    "source").get("link", "")
 
             url = json_content["knowledge_graph"].get("website", "")
             snippet = json_content["knowledge_graph"].get("description")
@@ -263,17 +273,18 @@ def search_with_searchapi(query: str, subscription_key: str):
                 })
 
         contexts += [
-            {"name": c["title"], "url": c["link"], "snippet": c.get("snippet", "")}
+            {"name": c["title"], "url": c["link"],
+                "snippet": c.get("snippet", "")}
             for c in json_content["organic_results"]
         ]
-        
+
         if json_content.get("related_questions"):
             for question in json_content["related_questions"]:
                 if question.get("source"):
                     url = question.get("source").get("link", "")
                 else:
-                    url = ""  
-                    
+                    url = ""
+
                 snippet = question.get("answer", "")
 
                 if url and snippet:
@@ -287,6 +298,7 @@ def search_with_searchapi(query: str, subscription_key: str):
     except KeyError:
         logger.error(f"Error encountered: {json_content}")
         return []
+
 
 class RAG(Photon):
     """
@@ -371,7 +383,8 @@ class RAG(Photon):
                 # We will set the connect timeout to be 10 seconds, and read/write
                 # timeout to be 120 seconds, in case the inference server is
                 # overloaded.
-                timeout=httpx.Timeout(connect=10, read=120, write=120, pool=10),
+                timeout=httpx.Timeout(
+                    connect=10, read=120, write=120, pool=10),
             )
             return thread_local.client
 
@@ -383,12 +396,14 @@ class RAG(Photon):
         leptonai.api.workspace.login()
         self.backend = os.environ["BACKEND"].upper()
         if self.backend == "LEPTON":
+            print("Using Lepton Search API")
             self.leptonsearch_client = Client(
                 "https://search-api.lepton.run/",
                 token=os.environ.get("LEPTON_WORKSPACE_TOKEN")
                 or WorkspaceInfoLocalRecord.get_current_workspace_token(),
                 stream=True,
-                timeout=httpx.Timeout(connect=10, read=120, write=120, pool=10),
+                timeout=httpx.Timeout(
+                    connect=10, read=120, write=120, pool=10),
             )
         elif self.backend == "BING":
             self.search_api_key = os.environ["BING_SEARCH_V7_SUBSCRIPTION_KEY"]
@@ -416,7 +431,8 @@ class RAG(Photon):
                 self.search_api_key,
             )
         else:
-            raise RuntimeError("Backend must be LEPTON, BING, GOOGLE, SERPER or SEARCHAPI.")
+            raise RuntimeError(
+                "Backend must be LEPTON, BING, GOOGLE, SERPER or SEARCHAPI.")
         self.model = os.environ["LLM_MODEL"]
         # An executor to carry out async tasks, such as uploading to KV.
         self.executor = concurrent.futures.ThreadPoolExecutor(
@@ -428,7 +444,8 @@ class RAG(Photon):
             os.environ["KV_NAME"], create_if_not_exists=True, error_if_exists=False
         )
         # whether we should generate related questions.
-        self.should_do_related_questions = to_bool(os.environ["RELATED_QUESTIONS"])
+        self.should_do_related_questions = to_bool(
+            os.environ["RELATED_QUESTIONS"])
 
     def get_related_questions(self, query, contexts):
         """
@@ -458,7 +475,8 @@ class RAG(Photon):
                     {
                         "role": "system",
                         "content": _more_questions_prompt.format(
-                            context="\n\n".join([c["snippet"] for c in contexts])
+                            context="\n\n".join([c["snippet"]
+                                                for c in contexts])
                         ),
                     },
                     {
@@ -513,7 +531,8 @@ class RAG(Photon):
             try:
                 result = json.dumps(related_questions)
             except Exception as e:
-                logger.error(f"encountered error: {e}\n{traceback.format_exc()}")
+                logger.error(
+                    f"encountered error: {e}\n{traceback.format_exc()}")
                 result = "[]"
             yield "\n\n__RELATED_QUESTIONS__\n\n"
             yield result
@@ -533,7 +552,8 @@ class RAG(Photon):
             yield result
         # Second, upload to KV. Note that if uploading to KV fails, we will silently
         # ignore it, because we don't want to affect the user experience.
-        _ = self.executor.submit(self.kv.put, search_uuid, "".join(all_yielded_results))
+        _ = self.executor.submit(
+            self.kv.put, search_uuid, "".join(all_yielded_results))
 
     @Photon.handler(method="POST", path="/query")
     def query_function(
@@ -567,16 +587,20 @@ class RAG(Photon):
 
                 return StreamingResponse(str_to_generator(result))
             except KeyError:
-                logger.info(f"Key {search_uuid} not found, will generate again.")
+                logger.info(
+                    f"Key {search_uuid} not found, will generate again.")
             except Exception as e:
                 logger.error(
                     f"KV error: {e}\n{traceback.format_exc()}, will generate again."
                 )
         else:
-            raise HTTPException(status_code=400, detail="search_uuid must be provided.")
+            raise HTTPException(
+                status_code=400, detail="search_uuid must be provided.")
 
+        print("self.backend ", self.backend)
         if self.backend == "LEPTON":
             # delegate to the lepton search api.
+            print("Using Lepton Search API")
             result = self.leptonsearch_client.query(
                 query=query,
                 search_uuid=search_uuid,
@@ -592,7 +616,8 @@ class RAG(Photon):
 
         system_prompt = _rag_query_text.format(
             context="\n\n".join(
-                [f"[[citation:{i+1}]] {c['snippet']}" for i, c in enumerate(contexts)]
+                [f"[[citation:{i+1}]] {c['snippet']}" for i,
+                    c in enumerate(contexts)]
             )
         )
         try:
@@ -641,4 +666,5 @@ class RAG(Photon):
 
 if __name__ == "__main__":
     rag = RAG()
-    rag.launch()
+    # rag.launch()
+    rag.launch(host="0.0.0.0", port=8081)
