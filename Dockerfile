@@ -1,5 +1,5 @@
 FROM node:20-alpine AS lepton_ui
-WORKDIR /app
+WORKDIR /ui
 COPY web/package*.json ./web/
 RUN cd web 
 RUN npm install  
