@@ -12,24 +12,27 @@ export const parseStreaming = async (
   onSources: (value: Source[]) => void,
   onMarkdown: (value: string) => void,
   onRelates: (value: Relate[]) => void,
-  onError?: (status: number) => void,
+  onError?: (status: number) => void
 ) => {
   const decoder = new TextDecoder();
   let uint8Array = new Uint8Array();
   let chunks = "";
   let sourcesEmitted = false;
-  const response = await fetch(`/query`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "*./*",
-    },
-    signal: controller.signal,
-    body: JSON.stringify({
-      query,
-      search_uuid,
-    }),
-  });
+  const response = await fetch(
+    `${process.env.NODE_ENV === "production" ? "/query" : "http://localhost:8081/query"}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*./*",
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        query,
+        search_uuid,
+      }),
+    }
+  );
   if (response.status !== 200) {
     onError?.(response.status);
     return;
@@ -40,7 +43,7 @@ export const parseStreaming = async (
         .replace(/\[\[([cC])itation/g, "[citation")
         .replace(/[cC]itation:(\d+)]]/g, "citation:$1]")
         .replace(/\[\[([cC]itation:\d+)]](?!])/g, `[$1]`)
-        .replace(/\[[cC]itation:(\d+)]/g, "[citation]($1)"),
+        .replace(/\[[cC]itation:(\d+)]/g, "[citation]($1)")
     );
   };
   fetchStream(
@@ -73,6 +76,6 @@ export const parseStreaming = async (
       } catch (e) {
         onRelates([]);
       }
-    },
+    }
   );
 };
