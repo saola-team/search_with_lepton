@@ -641,4 +641,4 @@ class RAG(Photon):
 
 if __name__ == "__main__":
     rag = RAG()
-    rag.launch()
+    rag.launch(port=int(os.environ.get("PORT", 8085)))
