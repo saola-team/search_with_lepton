@@ -23,6 +23,7 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <Image
               src="/ui/images/node-search.png"
+              unoptimized
               alt="Node Search"
               width={100}
               height={100}
