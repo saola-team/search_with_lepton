@@ -6,9 +6,9 @@ export default (phase, { defaultConfig }) => {
   if (env === "production") {
     return {
       output: "export",
-      assetPrefix: "/ui/",
+      assetPrefix: "/ui",
       basePath: "/ui",
-      distDir: "../ui"
+      distDir: "../ui",
     };
   } else {
     return {
@@ -16,10 +16,10 @@ export default (phase, { defaultConfig }) => {
         return [
           {
             source: "/query",
-            destination: "http://localhost:8080/query" // Proxy to Backend
-          }
+            destination: "http://localhost:8080/query", // Proxy to Backend
+          },
         ];
-      }
+      },
     };
   }
-}
+};
