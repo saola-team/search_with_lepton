@@ -44,7 +44,7 @@ export const Search: FC = () => {
           <div className="flex justify-between gap-3 px-2">
             <div className="font-[300] text-[14px] flex items-center gap-1 hover:underline cursor-pointer leading-3">
               <Image
-                src="/icons/svg/plus.svg"
+                src="/ui/icons/svg/plus.svg"
                 alt="plus"
                 width={12}
                 height={12}

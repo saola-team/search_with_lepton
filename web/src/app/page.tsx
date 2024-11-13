@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import backgroundNodeSearch from "./images/background-node-search.png";
-import nodeSearchLogo from "./images/node-search.png";
 
 export default function Home() {
   const router = useRouter();
@@ -23,7 +22,7 @@ export default function Home() {
           </p>
           <div className="flex items-center gap-4">
             <Image
-              src={nodeSearchLogo}
+              src="/ui/images/node-search.png"
               alt="Node Search"
               width={100}
               height={100}
