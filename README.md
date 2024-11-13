@@ -117,3 +117,21 @@ The following commands are available in the Makefile to help you set up and run 
 - **`make ai`**: Runs the main application script `search_with_lepton.py`. This command starts the server for the conversational search engine.
 
 - **`make clean`**: Uninstalls all Python packages listed in `requirements.txt`. This command can be used to clean up the environment if needed.
+
+## Docker Commands
+
+The following commands are available in the Makefile to help you set up and run the project:
+
+```python
+docker build -t search_lepton .
+```
+```python
+docker run -p 8080:8080 \
+  -e BING_SEARCH_V7_SUBSCRIPTION_KEY="your_bing_subscription_key" \
+  -e GOOGLE_SEARCH_API_KEY="your_google_search_api_key" \
+  -e LEPTON_WORKSPACE_TOKEN="your_lepton_workspace_token" \
+  -e LEPTON_WORKSPACE_ID="your_lepton_workspace_id" \
+  -e BACKEND="your_backend" \
+  search_lepton
+```
+
