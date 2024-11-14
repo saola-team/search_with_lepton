@@ -1,13 +1,14 @@
 "use client";
 import { getSearchUrl } from "@/app/utils/get-search-url";
-import { ArrowRight } from "lucide-react";
 import { nanoid } from "nanoid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
+import { useAuth } from "./authProvider";
 
 export const Search: FC = () => {
   const router = useRouter();
+  const { isLoggedIn, setSignUpModalOpen } = useAuth();
   const [value, setValue] = useState("");
   const [isProChecked, setIsProChecked] = useState(false);
   const [attachFile, setAttachFile] = useState(false);
@@ -16,16 +17,18 @@ export const Search: FC = () => {
     setIsProChecked(e.target.checked);
   };
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isLoggedIn) {
+      setSignUpModalOpen(true);
+    } else if (value) {
+      setValue("");
+      router.push(getSearchUrl(encodeURIComponent(value), nanoid()));
+    }
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (value) {
-          setValue("");
-          router.push(getSearchUrl(encodeURIComponent(value), nanoid()));
-        }
-      }}
-    >
+    <form onSubmit={onSubmit}>
       <label
         className="relative bg-white flex items-center justify-center border border-gradient py-2 px-2 rounded-lg gap-2"
         htmlFor="search-bar"
@@ -44,7 +47,7 @@ export const Search: FC = () => {
           <div className="flex justify-between gap-3 px-2">
             <div className="font-[300] text-[14px] flex items-center gap-1 hover:underline cursor-pointer leading-3">
               <Image
-                src="/ui/icons/svg/plus.svg"
+                src="/icons/svg/plus.svg"
                 alt="plus"
                 width={12}
                 height={12}
@@ -53,25 +56,31 @@ export const Search: FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="relative inline-block w-8 h-4">
+              <div className="relative inline-block w-10 h-5">
                 <input
                   checked={isProChecked}
                   type="checkbox"
                   id="switch-component-blue"
                   onChange={handleChecked}
-                  className="peer appearance-none w-8 h-4 bg-blue-200 rounded-full checked:bg-gradient-01 cursor-pointer transition-colors duration-300"
+                  className="peer appearance-none w-10 h-5 bg-blue-200 rounded-full checked:bg-gradient-01 cursor-pointer transition-colors duration-300"
                 />
                 <label
                   htmlFor="switch-component-blue"
-                  className="absolute left-px top-[3px] size-3.5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-4 peer-checked:border-blue-200 cursor-pointer"
+                  className="absolute left-px top-[2px] size-4 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-[22px] peer-checked:border-blue-200 cursor-pointer"
                 ></label>
               </div>
+              <p className="text-xs font-medium">Pro</p>
 
               <button
                 type="submit"
-                className="w-auto py-1 px-2 bg-black border-black text-white fill-white active:scale-95 border overflow-hidden relative rounded-xl"
+                className="flex items-center justify-center p-2 ml-3 bg-gradient-01 size-[30px] text-white flex-shrink-0 fill-white active:scale-95 border overflow-hidden relative rounded-full"
               >
-                <ArrowRight size={16} />
+                <Image
+                  src="/icons/svg/telegram-white.svg"
+                  alt="telegram"
+                  width={16}
+                  height={16}
+                />
               </button>
             </div>
           </div>

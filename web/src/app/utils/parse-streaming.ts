@@ -19,7 +19,7 @@ export const parseStreaming = async (
   let chunks = "";
   let sourcesEmitted = false;
   const response = await fetch(
-    `${process.env.NODE_ENV === "production" ? "/query" : "http://localhost:8081/query"}`,
+    `${process.env.NODE_ENV === "production" ? "/query" : "http://localhost:8085/query"}`,
     {
       method: "POST",
       headers: {

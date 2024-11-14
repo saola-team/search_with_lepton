@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import backgroundNodeSearch from "./images/background-node-search.png";
+import nodeSearchIcon from "../../public/icons/svg/node-search-icon.svg";
 
 export default function Home() {
   const router = useRouter();
@@ -10,7 +11,7 @@ export default function Home() {
   return (
     <div className="bg-black w-full h-screen flex  relative">
       <div
-        className=" absolute bg-auto bg-center bg-no-repeat w-full h-full z-0"
+        className="absolute bg-auto bg-center bg-no-repeat w-full h-full z-0"
         style={{ backgroundImage: `url(${backgroundNodeSearch.src})` }}
       />
       <div className="relative z-10 w-full h-full items-center justify-center flex-col">
@@ -20,14 +21,13 @@ export default function Home() {
           <p className="text-white text-[45px] font-bold">
             Meet your new shortcut
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-full max-w-[700px]">
             <Image
-              src="/ui/images/node-search.png"
+              src={nodeSearchIcon.src}
               alt="Node Search"
-              width={100}
-              height={100}
+              width={nodeSearchIcon.width}
+              height={nodeSearchIcon.height}
             />
-            <span className="text-white text-[92px]">Node Search</span>
           </div>
           <button
             className="bg-white px-8 py-3 rounded-[38px] font-bold text-black text-3xl"
