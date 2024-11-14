@@ -23,7 +23,7 @@ export default function Home() {
           </p>
           <div className="flex items-center gap-4 w-full max-w-[700px]">
             <Image
-              src={nodeSearchIcon.src}
+              src="/ui/images/node-search.png"
               alt="Node Search"
               width={nodeSearchIcon.width}
               height={nodeSearchIcon.height}
