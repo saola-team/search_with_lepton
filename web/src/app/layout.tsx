@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-import Sidebar from "./components/sidebar";
-import { ThemeProvider } from "./components/themeProvider";
-import { AuthProvider } from "./components/authProvider";
+import Sidebar from "@/components/sidebar";
+import { ThemeProvider } from "@/components/themeProvider";
+import { AuthProvider } from "@/components/authProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <AuthProvider>
         <ThemeProvider>
           <body className={inter.className}>
-            <div className="relative h-screen flex relative">
+            <div className="relative h-screen flex">
               <Sidebar />
               <div className="flex-1 h-screen flex items-center justify-center">
                 {children}

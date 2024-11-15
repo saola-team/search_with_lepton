@@ -1,10 +1,12 @@
 "use client";
-import { getSearchUrl } from "@/app/utils/get-search-url";
+import { getSearchUrl } from "@/utils/get-search-url";
 import { nanoid } from "nanoid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
 import { useAuth } from "./authProvider";
+import PlusIcon from "../../public/icons/svg/plus.svg";
+import TelegramWhiteIcon from "../../public/icons/svg/telegram-white.svg";
 
 export const Search: FC = () => {
   const router = useRouter();
@@ -46,12 +48,7 @@ export const Search: FC = () => {
 
           <div className="flex justify-between gap-3 px-2">
             <div className="font-[300] text-[14px] flex items-center gap-1 hover:underline cursor-pointer leading-3">
-              <Image
-                src="/icons/svg/plus.svg"
-                alt="plus"
-                width={12}
-                height={12}
-              />
+              <Image src={PlusIcon.src} alt="plus" width={12} height={12} />
               <p className="">Attach file</p>
             </div>
 
@@ -76,7 +73,8 @@ export const Search: FC = () => {
                 className="flex items-center justify-center p-2 ml-3 bg-gradient-01 size-[30px] text-white flex-shrink-0 fill-white active:scale-95 border overflow-hidden relative rounded-full"
               >
                 <Image
-                  src="/icons/svg/telegram-white.svg"
+                  src={TelegramWhiteIcon.src}
+                  unoptimized
                   alt="telegram"
                   width={16}
                   height={16}

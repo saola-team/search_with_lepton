@@ -1,9 +1,9 @@
 "use client";
-import { Logo } from "@/app/components/logo";
-import { PresetQuery } from "@/app/components/preset-query";
-import { Search } from "@/app/components/search";
-import { Footer } from "../components/footer";
-import Popup from "../components/popup";
+import { Logo } from "@/components/logo";
+import { PresetQuery } from "@/components/preset-query";
+import { Search } from "@/components/search";
+import { Footer } from "@/components/footer";
+import Popup from "@/components/popup";
 
 const presetQueries = [
   "Who is the president of the United States?",

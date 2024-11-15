@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import chevronDownIcon from "../../../public/icons/svg/chevron-down.svg";
+import chevronDownIcon from "../../public/icons/svg/chevron-down.svg";
 
 export const Footer: FC = () => {
   return (

@@ -5,21 +5,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { sidebarLinks } from "../constants";
-import nodeSearchLogo from "../../../public/icons/svg/logo.svg";
-import { useTheme } from "./themeProvider";
+import { sidebarFooterLinks, sidebarLinks } from "@/constants";
+import nodeSearchLogo from "../../public/icons/svg/logo.svg";
+import DownloadArrowIcon from "../../public/icons/svg/down-arrow.svg";
+import { useTheme } from "@/components/themeProvider";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const navigate = useRouter();
   const { toggleTheme, darkMode } = useTheme();
 
-  const isLoginPage =
+  const isShowSidebar =
     Boolean(pathname === "/login") ||
     Boolean(pathname === "/signup") ||
-    Boolean(pathname === "/");
+    Boolean(pathname === "/") ||
+    Boolean(pathname === "/index.html");
+
+  console.log("pathname =>>>", pathname);
+
   return (
-    !isLoginPage && (
+    !isShowSidebar && (
       <section className="flex h-screen w-[220px] flex-col justify-between border-r border-gray-200 bg-white pt-8 text-black max-md:hidden sm:p-4 xl:p-6 2xl:w-[220px]">
         <nav className="flex flex-col gap-4">
           <div className="flex items-center justify-center h-20">
@@ -49,7 +54,13 @@ const Sidebar = () => {
                 className={`flex items-center gap-2 hover:bg-gray-100 rounded-lg p-2 cursor-pointer ${isActive ? "bg-gray-100" : ""}`}
               >
                 <div className="relative size-6">
-                  <Image src={item.imgURL} alt={item.title} fill className="" />
+                  <Image
+                    src={item.img.src}
+                    alt={item.title}
+                    width={item.img.width}
+                    height={item.img.height}
+                    className=""
+                  />
                 </div>
                 <p className="">{item.title}</p>
               </Link>
@@ -73,18 +84,25 @@ const Sidebar = () => {
         </nav>
 
         <footer className="flex flex-col gap-2">
-          <button className="bg-gradient-02 text-white p-2 rounded-lg w-full max-w-[220px]">
+          <Link
+            href="/login?type=signup"
+            className="bg-gradient-02 text-center text-white p-2 rounded-lg w-full max-w-[220px]"
+          >
             Sign Up
-          </button>
+          </Link>
 
-          <button className="bg-black text-white p-2 rounded-lg w-full max-w-[220px]">
+          <Link
+            href="/login?type=login
+            "
+            className="bg-black text-center text-white p-2 rounded-lg w-full max-w-[220px]"
+          >
             Login
-          </button>
+          </Link>
           <div className="w-full h-[1px] bg-gray-200 my-4"></div>
           <div className="flex justify-between items-center">
             <div className="flex text-sm font-light gap-1.5">
               <Image
-                src={`/icons/svg/down-arrow.svg`}
+                src={DownloadArrowIcon.src}
                 alt="down-arrow"
                 width={15}
                 height={16}
@@ -92,11 +110,11 @@ const Sidebar = () => {
               <p>Download</p>
             </div>
             <div className="flex text-sm font-light gap-1.5">
-              {["x", "telegram", "discord"].map((icon) => (
-                <div key={icon} className="flex">
+              {sidebarFooterLinks.map((icon) => (
+                <div key={icon.title} className="flex">
                   <Image
-                    src={`/icons/svg/${icon}.svg`}
-                    alt={icon}
+                    src={icon.img.src}
+                    alt={icon.title}
                     width={24}
                     height={24}
                     className="max-h-5"

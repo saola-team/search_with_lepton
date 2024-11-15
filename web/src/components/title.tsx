@@ -1,5 +1,5 @@
 "use client";
-import { getSearchUrl } from "@/app/utils/get-search-url";
+import { getSearchUrl } from "@/utils/get-search-url";
 import { RefreshCcw } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";

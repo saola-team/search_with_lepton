@@ -1,7 +1,7 @@
-import { PresetQuery } from "@/app/components/preset-query";
-import { Skeleton } from "@/app/components/skeleton";
-import { Wrapper } from "@/app/components/wrapper";
-import { Relate } from "@/app/interfaces/relate";
+import { PresetQuery } from "@/components/preset-query";
+import { Skeleton } from "@/components/skeleton";
+import { Wrapper } from "@/components/wrapper";
+import { Relate } from "@/interfaces/relate";
 import { MessageSquareQuote } from "lucide-react";
 import React, { FC } from "react";
 

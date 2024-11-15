@@ -1,6 +1,6 @@
-import { Skeleton } from "@/app/components/skeleton";
-import { Wrapper } from "@/app/components/wrapper";
-import { Source } from "@/app/interfaces/source";
+import { Skeleton } from "@/components/skeleton";
+import { Wrapper } from "@/components/wrapper";
+import { Source } from "@/interfaces/source";
 import { BookText } from "lucide-react";
 import { FC } from "react";
 

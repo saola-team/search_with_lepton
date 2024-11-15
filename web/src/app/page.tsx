@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import backgroundNodeSearch from "./images/background-node-search.png";
+import backgroundNodeSearch from "../../public/background.svg";
 import nodeSearchIcon from "../../public/icons/svg/node-search-icon.svg";
 
 export default function Home() {
@@ -11,8 +11,10 @@ export default function Home() {
   return (
     <div className="bg-black w-full h-screen flex  relative">
       <div
-        className="absolute bg-auto bg-center bg-no-repeat w-full h-full z-0"
-        style={{ backgroundImage: `url(${backgroundNodeSearch.src})` }}
+        className="absolute bg-cover bg-center bg-no-repeat w-full h-full z-0"
+        style={{
+          backgroundImage: `url(${backgroundNodeSearch.src})`,
+        }}
       />
       <div className="relative z-10 w-full h-full items-center justify-center flex-col">
         <div className="absolute rounded-full border-[1px] border-white w-[600px] h-[600px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-0" />
@@ -23,7 +25,7 @@ export default function Home() {
           </p>
           <div className="flex items-center gap-4 w-full max-w-[700px]">
             <Image
-              src="/ui/images/node-search.png"
+              src={nodeSearchIcon.src}
               alt="Node Search"
               width={nodeSearchIcon.width}
               height={nodeSearchIcon.height}

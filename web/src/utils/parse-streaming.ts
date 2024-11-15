@@ -1,6 +1,6 @@
-import { Relate } from "@/app/interfaces/relate";
-import { Source } from "@/app/interfaces/source";
-import { fetchStream } from "@/app/utils/fetch-stream";
+import { Relate } from "@/interfaces/relate";
+import { Source } from "@/interfaces/source";
+import { fetchStream } from "@/utils/fetch-stream";
 
 const LLM_SPLIT = "__LLM_RESPONSE__";
 const RELATED_SPLIT = "__RELATED_QUESTIONS__";

@@ -1,10 +1,10 @@
 "use client";
-import { Answer } from "@/app/components/answer";
-import { Relates } from "@/app/components/relates";
-import { Sources } from "@/app/components/sources";
-import { Relate } from "@/app/interfaces/relate";
-import { Source } from "@/app/interfaces/source";
-import { parseStreaming } from "@/app/utils/parse-streaming";
+import { Answer } from "@/components/answer";
+import { Relates } from "@/components/relates";
+import { Sources } from "@/components/sources";
+import { Relate } from "@/interfaces/relate";
+import { Source } from "@/interfaces/source";
+import { parseStreaming } from "@/utils/parse-streaming";
 import { Annoyed } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 

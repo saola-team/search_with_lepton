@@ -1,7 +1,7 @@
 "use client";
-import { Result } from "@/app/components/result";
-import { Search } from "@/app/components/search";
-import { Title } from "@/app/components/title";
+import { Result } from "@/components/result";
+import { Search } from "@/components/search";
+import { Title } from "@/components/title";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 

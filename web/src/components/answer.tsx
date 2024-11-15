@@ -1,11 +1,7 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/app/components/popover";
-import { Skeleton } from "@/app/components/skeleton";
-import { Wrapper } from "@/app/components/wrapper";
-import { Source } from "@/app/interfaces/source";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Skeleton } from "@/components/skeleton";
+import { Wrapper } from "@/components/wrapper";
+import { Source } from "@/interfaces/source";
 import { BookOpenText } from "lucide-react";
 import { FC } from "react";
 import Markdown from "react-markdown";

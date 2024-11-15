@@ -2,11 +2,11 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import googleIcon from "../../../public/icons/svg/google.svg";
-import arrowDownIcon from "../../../public/icons/svg/chevron-down.svg";
-import nodeSearchIcon from "../../../public/icons/svg/node-search-icon.svg";
-import { useOnClickOutside } from "../hooks";
-import { useAuth } from "./authProvider";
+import googleIcon from "../../public/icons/svg/google.svg";
+import arrowDownIcon from "../../public/icons/svg/chevron-down.svg";
+import nodeSearchIcon from "../../public/icons/svg/node-search-icon.svg";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import { useAuth } from "@/components/authProvider";
 
 const Popup = () => {
   const { isOpenSignUpModal: isOpen, setSignUpModalOpen } = useAuth();
