@@ -7,9 +7,11 @@ import arrowDownIcon from "../../public/icons/svg/chevron-down.svg";
 import nodeSearchIcon from "../../public/icons/svg/node-search-icon.svg";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { useAuth } from "@/components/authProvider";
+import { XIcon } from "lucide-react";
 
 const Popup = () => {
   const { isOpenSignUpModal: isOpen, setSignUpModalOpen } = useAuth();
+
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setSignUpModalOpen(false));
 
@@ -18,8 +20,16 @@ const Popup = () => {
       {isOpen ? (
         <div
           ref={ref}
-          className="absolute right-0 bottom-0 py-6 px-7 flex items-center justify-center text-white bg-[#6200FF] shadow-2xl rounded-md text-base font-light"
+          className="absolute right-0 bottom-0 py-6 px-7 flex flex-col items-center justify-center text-white bg-[#6200FF] shadow-2xl rounded-md text-base font-light"
         >
+          <div className="w-full flex items-center justify-end">
+            <button
+              className="text-white text-sm font-light"
+              onClick={() => setSignUpModalOpen(false)}
+            >
+              <XIcon className="size-4" />
+            </button>
+          </div>
           <div className="flex flex-col items-center gap-6 w-fit">
             <div className="flex items-center gap-2 w-[150px]">
               <Image
@@ -85,7 +95,7 @@ const Popup = () => {
         </div>
       ) : (
         <div
-          className="absolute right-0 bottom-0 size-8 flex items-center justify-center text-white bg-[#6200FF] shadow-2xl rounded-full text-base font-light"
+          className="absolute right-0 bottom-0 size-8 flex items-center justify-center text-white bg-[#6200FF] shadow-2xl rounded-full text-base font-light cursor-pointer"
           onClick={() => setSignUpModalOpen(true)}
         >
           ?

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import chevronDownIcon from "../../public/icons/svg/chevron-down.svg";
+import ChevronDownIcon from "../../public/icons/svg/chevron-down.svg";
 
 export const Footer: FC = () => {
   return (
@@ -11,10 +11,10 @@ export const Footer: FC = () => {
         <div className="flex items-center gap-1">
           <p className="text-sm font-light">English (English)</p>
           <Image
-            src={chevronDownIcon.src}
+            src={ChevronDownIcon.src}
             alt="Chevron down"
-            width={chevronDownIcon.width}
-            height={chevronDownIcon.height}
+            width={ChevronDownIcon.width}
+            height={ChevronDownIcon.height}
           />
         </div>
       </div>
