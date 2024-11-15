@@ -13,7 +13,7 @@ activate:
 	source ./.venv/bin/activate
 
 build:
-	cd web && npm run build
+	cd web && npm install && npm run build
 
 # Optional: Add a clean target to remove installed packages (if needed)
 clean:
