@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import backgroundNodeSearch from "../../public/background.svg";
 import nodeSearchIcon from "../../public/icons/svg/node-search-icon.svg";
+import Link from "next/link";
+import { getHtmlUrl } from "@/utils/get-search-url";
 
 export default function Home() {
   const router = useRouter();
@@ -31,13 +33,13 @@ export default function Home() {
               height={nodeSearchIcon.height}
             />
           </div>
-          <button
+          <Link
+            href={getHtmlUrl("/prompt")}
             className="bg-white px-8 py-3 rounded-[38px] font-bold text-black text-3xl"
             type="button"
-            onClick={() => router.push("/prompt")}
           >
             Get started
-          </button>
+          </Link>
         </div>
       </div>
     </div>

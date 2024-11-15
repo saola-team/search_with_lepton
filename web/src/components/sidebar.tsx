@@ -14,6 +14,7 @@ import DownloadArrowIcon from "../../public/icons/svg/down-arrow.svg";
 import ChevronDownIcon from "../../public/icons/svg/chevron-down.svg";
 import SettingsIcon from "../../public/icons/svg/setting.svg";
 import { ArrowLeftToLineIcon, ArrowRightToLineIcon } from "lucide-react";
+import { getHtmlUrl } from "@/utils/get-search-url";
 const Sidebar = () => {
   const pathname = usePathname();
   const navigate = useRouter();
@@ -21,11 +22,11 @@ const Sidebar = () => {
   const { toggleTheme, darkMode } = useTheme();
   const { isLoggedIn } = useAuth();
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   const isShowSidebar =
     Boolean(pathname === "/login") ||
-    Boolean(pathname === "/signup") ||
+    Boolean(pathname === "/login.html") ||
     Boolean(pathname === "/") ||
     Boolean(pathname === "/index.html");
 
@@ -52,12 +53,14 @@ const Sidebar = () => {
           <>
             <nav className="flex flex-col gap-4 sm:px-4 xl:px-6">
               <div className="flex items-center justify-center gap-2 h-20">
-                <Image
-                  src={nodeSearchLogo.src}
-                  alt="logo"
-                  width={nodeSearchLogo.width}
-                  height={nodeSearchLogo.height}
-                />
+                <Link href={getHtmlUrl("/")} className="w-full flex-shrink-0">
+                  <Image
+                    src={nodeSearchLogo.src}
+                    alt="logo"
+                    width={nodeSearchLogo.width}
+                    height={nodeSearchLogo.height}
+                  />
+                </Link>
 
                 <div className="w-full flex items-center justify-end">
                   <button
@@ -83,7 +86,7 @@ const Sidebar = () => {
                 return (
                   <Link
                     key={item.title}
-                    href={item.route}
+                    href={getHtmlUrl(item.route)}
                     className={`flex items-center gap-2 hover:bg-gray-100 rounded-lg p-2 cursor-pointer ${isActive ? "bg-gray-100" : ""}`}
                   >
                     <div className="relative size-6">
@@ -120,14 +123,14 @@ const Sidebar = () => {
               {!isLoggedIn ? (
                 <div className="sm:px-4 xl:px-6 flex flex-col gap-2">
                   <Link
-                    href="/login?type=signup"
+                    href={`${getHtmlUrl("/login")}?type=signup`}
                     className="bg-gradient-02 text-center text-white p-2 rounded-lg w-full max-w-[220px]"
                   >
                     Sign Up
                   </Link>
 
                   <Link
-                    href="/login?type=login"
+                    href={`${getHtmlUrl("/login")}?type=login`}
                     className="bg-black text-center text-white p-2 rounded-lg w-full max-w-[220px]"
                   >
                     Login
