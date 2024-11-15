@@ -652,7 +652,7 @@ class RAG(Photon):
             media_type="text/html",
         )
 
-    @Photon.handler(mount=True)
+    @Photon.handler(mount=True, path="/ui")
     def ui(self):
         return StaticFiles(directory="ui")
 
